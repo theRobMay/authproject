@@ -39,7 +39,7 @@ let login = function (req,res) {
     let username = req.body.username;
     let password = req.body.password;
 
-    let sql = "select username, password_hash, full_name from people where username = ?"
+    let sql = "select id, username, password_hash, full_name from people where username = ?"
     let params = [username]
     db.query(sql, params, async function (err, rows) {
         if (err) {
@@ -54,6 +54,7 @@ let login = function (req,res) {
             } else {
                 let pwhash = rows[0].password_hash;
                 let fName = rows[0].full_name;
+                let userid = rows[0].id;
 
                 let pass = false
                 try {
@@ -64,6 +65,7 @@ let login = function (req,res) {
                 if (pass){
                     let token = {
                         "fullName": fName,
+                        "userID":userid
                     };
                     //sign the token, send signed token
                     let signedToken = jwt.sign(token, process.env.JWT_SECRET)
