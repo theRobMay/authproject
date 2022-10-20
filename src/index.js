@@ -16,4 +16,4 @@ let port = process.env.PORT || 8080
 app.listen(port, function (){
 
 })
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/src/public.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public.html')));
